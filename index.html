@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karan Puri - AMFI Certified | Invest Smartly</title>
+    
+    <!--
+    Date Created: November 5, 2025
+    Tool: Claude Sonnet 4.5
+    Prompt: Build a responsive webpage from financial advisor poster image with CSS Grid, 
+    animated burger menu (11 items), mobile-first design, blue color scheme, and comprehensive 
+    sections for financial planning services.
+    
+    README.md:
+    # Karan Puri - Invest Smartly Landing Page
+    
+    ## Purpose
+    A professional landing page for AMFI-certified financial advisor Karan Puri, designed to 
+    help clients understand SIP investments and reach their financial goals (₹1 crore target).
+    The page emphasizes smart investment strategies and personalized financial planning.
+    
+    ## Features
+    - Responsive CSS Grid layout optimized for mobile devices
+    - Animated hamburger menu with 11 navigation items
+    - Hero section with compelling call-to-action
+    - Comprehensive sections: About, Smart Investments, FAQ, Contact, Disclaimers, etc.
+    - Professional blue gradient color scheme matching brand identity
+    - Mobile-first design with no horizontal scroll
+    - Interactive calculators section
+    - Educational content on compounding and FD reality
+    - Full compliance disclaimers for financial services
+    
+    ## Technical Implementation
+    - Single-file HTML with embedded CSS and JavaScript
+    - Pure CSS animations for menu transitions
+    - CSS Grid and Flexbox for responsive layouts
+    - Smooth scrolling navigation
+    - Accessibility-friendly design
+    - Performance-optimized with minimal dependencies
+    
+    ## Sections Included
+    1. Hero section with value proposition
+    2. About Karan Puri
+    3. Smart Investment strategies
+    4. FAQ for common queries
+    5. Contact information and form
+    6. Legal disclaimers
+    7. Privacy policy
+    8. Equity investment info
+    9. Mutual funds guidance
+    10. Investment calculators
+    11. Compounding explained
+    12. FD reality check
+    
+    This landing page serves as a complete online presence for a financial advisor, 
+    building trust and providing valuable information to potential clients.
+    -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-blue: #1e5fcc;
+            --dark-blue: #0a3d91;
+            --light-blue: #4a8fe7;
+            --accent-orange: #ff6b35;
+            --text-white: #ffffff;
+            --text-light: #f0f4f8;
+            --text-dark: #2d3748;
+            --gray-light: #e2e8f0;
+            --gray-medium: #cbd5e0;
+            --success-green: #48bb78;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+        
+        .logo span {
+            color: var(--accent-orange);
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+        }
+        
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--text-white);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+        
+        /* Mobile Menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+            padding: 80px 2rem 2rem;
+            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            z-index: 999;
+        }
+        
+        .nav-menu.active {
+            right: 0;
+        }
+        
+        .nav-menu ul {
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin: 0.5rem 0;
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideIn 0.5s forwards;
+        }
+        
+        .nav-menu.active li {
+            animation: slideIn 0.5s forwards;
+        }
+        
+        .nav-menu li:nth-child(1) { animation-delay: 0.1s; }
+        .nav-menu li:nth-child(2) { animation-delay: 0.15s; }
+        .nav-menu li:nth-child(3) { animation-delay: 0.2s; }
+        .nav-menu li:nth-child(4) { animation-delay: 0.25s; }
+        .nav-menu li:nth-child(5) { animation-delay: 0.3s; }
+        .nav-menu li:nth-child(6) { animation-delay: 0.35s; }
+        .nav-menu li:nth-child(7) { animation-delay: 0.4s; }
+        .nav-menu li:nth-child(8) { animation-delay: 0.45s; }
+        .nav-menu li:nth-child(9) { animation-delay: 0.5s; }
+        .nav-menu li:nth-child(10) { animation-delay: 0.55s; }
+        .nav-menu li:nth-child(11) { animation-delay: 0.6s; }
+        
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .nav-menu a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.3s ease;
+        }
+        
+        .nav-menu a:hover::before {
+            left: 0;
+        }
+        
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
+        }
+        
+        /* Overlay for menu */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            padding: 100px 1rem 60px;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.pexels.com/photos/6863332/pexels-photo-6863332.jpeg?auto=compress&cs=tinysrgb&w=1200') center/cover;
+            opacity: 0.08;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-tagline {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero h1 .smartly {
+            color: var(--accent-orange);
+            display: block;
+            font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .hero-subtitle .highlight {
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+        
+        .hero-profile {
+            margin: 2rem 0;
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: url('https://images.pexels.com/photos/5668842/pexels-photo-5668842.jpeg?auto=compress&cs=tinysrgb&w=400') center/cover;
+            border: 5px solid var(--text-white);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .hero-name {
+            font-size: 2rem;
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .hero-certification {
+            font-size: 1.1rem;
+            color: var(--success-green);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-phone {
+            font-size: 1.5rem;
+            color: var(--text-white);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-phone:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: var(--text-white);
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            background: #ff5722;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 107, 53, 0.3);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section h2 {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-orange);
+            border-radius: 2px;
+        }
+        
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            color: var(--text-white);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .service-card {
+            background: var(--text-white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary-blue);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .service-card p {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--text-white);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            width: 100%;
+            background: var(--primary-blue);
+            color: var(--text-white);
+            padding: 1.25rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: var(--dark-blue);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 1.25rem;
+            background: var(--gray-light);
+        }
+        
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 1.25rem;
+        }
+        
+        .faq-answer p {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+        
+        /* Calculator Section */
+        .calculator-card {
+            background: var(--text-white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        
+        .calc-input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .calc-input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-blue);
+        }
+        
+        .calc-input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-medium);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .calc-input-group input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+        
+        .calc-button {
+            width: 100%;
+            background: var(--primary-blue);
+            color: var(--text-white);
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calc-button:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+        
+        .calc-result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        
+        .calc-result.show {
+            display: block;
+        }
+        
+        .calc-result h3 {
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+        }
+        
+        .calc-result .amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--success-green);
+        }
+        
+        /* Contact Form */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-form {
+            background: var(--text-white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-blue);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-medium);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-button {
+            background: var(--accent-orange);
+            color: var(--text-white);
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-button:hover {
+            background: #ff5722;
+            transform: translateY(-2px);
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            color: var(--text-white);
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-item-icon {
+            font-size: 1.5rem;
+        }
+        
+        .contact-item-text {
+            flex: 1;
+        }
+        
+        .contact-item strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        /* Disclaimer Section */
+        .disclaimer-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        .disclaimer-box h3 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+        
+        .disclaimer-box p {
+            color: #856404;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #051e3e 100%);
+            color: var(--text-white);
+            padding: 3rem 1rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-orange);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent-orange);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-bottom p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .footer-bottom a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Tablet Styles */
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .hero h1 .smartly {
+                font-size: 3.5rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .nav-menu {
+                width: 320px;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 1024px) {
+            .hero {
+                padding: 120px 2rem 80px;
+            }
+            
+            section {
+                padding: 5rem 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 5rem;
+            }
+        }
+        
+        /* Ensure no horizontal scroll */
+        body, html {
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        * {
+            max-width: 100%;
+        }
+        
+        /* Smooth animations */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Print styles */
+        @media print {
+            .header, .hamburger, .nav-menu, .overlay {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">Karan<span>Puri</span>.in</a>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#smart-investments">Smart Investments</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact Me</a></li>
+            <li><a href="#disclaimers">Disclaimers</a></li>
+            <li><a href="#privacy">Privacy Policy</a></li>
+            <li><a href="#equity">Equity</a></li>
+            <li><a href="#mutual-funds">Mutual Funds</a></li>
+            <li><a href="#calculators">Calculators</a></li>
+            <li><a href="#compounding">Compounding</a></li>
+            <li><a href="#fd-reality">FD Reality</a></li>
+        </ul>
+    </nav>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-tagline">Your SIP Can Do More</p>
+            <h1>
+                DON'T JUST INVEST
+                <span class="smartly">INVEST SMARTLY!</span>
+            </h1>
+            <p class="hero-subtitle">
+                Call for one-on-one financial planning to optimize your SIPs<br>
+                and reach your <span class="highlight">₹1 Crore</span> goal.
+            </p>
+            
+            <div class="hero-profile">
+                <div class="profile-image"></div>
+                <h2 class="hero-name">Karan Puri</h2>
+                <p class="hero-certification">AMFI CERTIFIED ✓</p>
+                <a href="tel:9017888889" class="hero-phone">
+                    📞 901-788-8889
+                </a>
+            </div>
+            
+            <a href="#contact" class="cta-button">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Karan Puri</h2>
+        <div class="about-grid">
+            <div class="about-content">
+                <p>With years of experience in financial planning and investment advisory, I'm dedicated to helping individuals achieve their financial dreams through smart, strategic investments.</p>
+                
+                <p>As an AMFI-certified professional, I specialize in creating personalized investment strategies that align with your financial goals, risk appetite, and life stage.</p>
+                
+                <p>My mission is simple: Help you build wealth systematically and reach your ₹1 Crore milestone through disciplined SIP investments and smart asset allocation.</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Happy Clients</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">₹100Cr+</span>
+                    <span class="stat-label">AUM Managed</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Client Satisfaction</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Investments Section -->
+    <section id="smart-investments">
+        <h2>Smart Investment Strategies</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>SIP Planning</h3>
+                <p>Systematic Investment Plans designed to help you accumulate wealth gradually through disciplined monthly investments in carefully selected mutual funds.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">💰</div>
+                <h3>Portfolio Diversification</h3>
+                <p>Build a well-balanced portfolio across equity, debt, and hybrid funds to optimize returns while managing risk effectively.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <h3>Goal-Based Investing</h3>
+                <p>Whether it's retirement, child's education, or buying a home - we create customized investment strategies aligned with your specific goals.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3>Wealth Creation</h3>
+                <p>Leverage the power of compounding and market growth to build substantial wealth over the long term through strategic investments.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🔍</div>
+                <h3>Regular Reviews</h3>
+                <p>Periodic portfolio reviews and rebalancing to ensure your investments stay aligned with your goals and market conditions.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🛡️</div>
+                <h3>Risk Management</h3>
+                <p>Comprehensive risk assessment and mitigation strategies to protect your investments while maximizing potential returns.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">
+                    What is SIP and how does it work?
+                    <span>▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Systematic Investment Plan (SIP) is a method of investing in mutual funds where you invest a fixed amount regularly (monthly/quarterly). It helps you average out market volatility through rupee cost averaging and build wealth systematically over time.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    How much should I invest monthly to reach ₹1 Crore?
+                    <span>▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>The amount depends on your time horizon and expected returns. For example, investing ₹10,000/month for 20 years at 12% annual returns can potentially grow to approximately ₹1 Crore. Use our calculator to find your personalized investment amount.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    Is SIP better than FD (Fixed Deposit)?
+                    <span>▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>While FDs offer guaranteed returns, SIPs in equity mutual funds have historically provided higher inflation-adjusted returns over the long term. However, mutual funds carry market risk. A balanced approach often includes both for diversification.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    What is the minimum investment required?
+                    <span>▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>You can start a SIP with as little as ₹500 per month in many mutual funds. However, I recommend starting with at least ₹5,000 monthly to see meaningful wealth creation over time.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    Are my investments safe with mutual funds?
+                    <span>▼</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Mutual funds are regulated by SEBI and managed by professional fund managers. While they carry market risk, diversification and long-term investing significantly reduce risks. We help you choose funds based on your risk profile.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equity Section -->
+    <section id="equity">
+        <h2>Equity Investments</h2>
+        <div class="about-grid">
+            <div class="about-content">
+                <p><strong>Equity mutual funds</strong> invest primarily in stocks and have the potential to generate higher returns over the long term compared to other asset classes.</p>
+                
+                <p>They are ideal for:</p>
+                <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                    <li>Long-term wealth creation (5+ years)</li>
+                    <li>Retirement planning</li>
+                    <li>Beating inflation</li>
+                    <li>Building substantial corpus</li>
+                </ul>
+                
+                <p>I help you select the right equity funds based on your risk appetite, investment horizon, and financial goals.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3>Why Choose Equity?</h3>
+                <p><strong>Higher Growth Potential:</strong> Historically, equity has provided 12-15% annual returns over long periods.</p>
+                <p><strong>Inflation Protection:</strong> Equity investments typically outpace inflation, preserving and growing your purchasing power.</p>
+                <p><strong>Wealth Multiplication:</strong> Perfect for achieving ambitious goals like ₹1 Crore through disciplined SIPs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mutual Funds Section -->
+    <section id="mutual-funds">
+        <h2>Mutual Funds</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏢</div>
+                <h3>Large Cap Funds</h3>
+                <p>Invest in well-established companies with proven track records. Lower risk, stable returns, perfect for conservative investors.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🚀</div>
+                <h3>Mid & Small Cap Funds</h3>
+                <p>Higher growth potential through investments in emerging companies. Suitable for aggressive investors with longer time horizons.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">⚖️</div>
+                <h3>Hybrid Funds</h3>
+                <p>Balanced approach combining equity and debt. Offers growth potential with lower volatility than pure equity funds.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🔒</div>
+                <h3>Debt Funds</h3>
+                <p>Lower risk investments in fixed income securities. Suitable for short-term goals and capital preservation.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">💎</div>
+                <h3>ELSS Funds</h3>
+                <p>Tax-saving mutual funds with 3-year lock-in. Enjoy Section 80C benefits while building wealth.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🌍</div>
+                <h3>Index Funds</h3>
+                <p>Low-cost funds that track market indices. Simple, transparent, and ideal for passive investors.</p>
+            </div>
+        </div>
+        
+        <div class="disclaimer-box">
+            <h3>⚠️ Important Note</h3>
+            <p>Mutual Fund investments are subject to market risks. Read all scheme-related documents carefully. Past performance is not indicative of future returns.</p>
+        </div>
+    </section>
+
+    <!-- Calculators Section -->
+    <section id="calculators">
+        <h2>SIP Calculator</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">Calculate how your SIP can grow over time</p>
+        
+        <div class="calculator-card">
+            <div class="calc-input-group">
+                <label for="monthlyInvestment">Monthly Investment Amount (₹)</label>
+                <input type="number" id="monthlyInvestment" placeholder="Enter amount (e.g., 10000)" min="500" value="10000">
+            </div>
+            
+            <div class="calc-input-group">
+                <label for="investmentPeriod">Investment Period (Years)</label>
+                <input type="number" id="investmentPeriod" placeholder="Enter years (e.g., 20)" min="1" value="20">
+            </div>
+            
+            <div class="calc-input-group">
+                <label for="expectedReturn">Expected Annual Return (%)</label>
+                <input type="number" id="expectedReturn" placeholder="Enter return rate (e.g., 12)" min="1" max="30" value="12" step="0.5">
+            </div>
+            
+            <button class="calc-button" onclick="calculateSIP()">Calculate</button>
+            
+            <div class="calc-result" id="calcResult">
+                <h3>Your Investment Can Grow To:</h3>
+                <div class="amount" id="finalAmount">₹0</div>
+                <p style="color: var(--text-light); margin-top: 1rem;">
+                    Total Investment: <strong id="totalInvested">₹0</strong><br>
+                    Estimated Returns: <strong id="estimatedReturns">₹0</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compounding Section -->
+    <section id="compounding">
+        <h2>Power of Compounding</h2>
+        <div class="about-grid">
+            <div class="about-content">
+                <h3 style="color: var(--dark-blue); margin-bottom: 1rem;">What is Compounding?</h3>
+                <p>Compounding is when your investment returns generate their own returns. It's often called the "8th wonder of the world" - and for good reason!</p>
+                
+                <h3 style="color: var(--dark-blue); margin: 1.5rem 0 1rem;">The Magic Formula:</h3>
+                <p>When you invest ₹10,000 monthly:</p>
+                <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                    <li><strong>After 10 years:</strong> ~₹23 Lakhs (at 12% return)</li>
+                    <li><strong>After 15 years:</strong> ~₹50 Lakhs</li>
+                    <li><strong>After 20 years:</strong> ~₹1 Crore</li>
+                    <li><strong>After 25 years:</strong> ~₹1.89 Crore</li>
+                </ul>
+                
+                <p>The key is to start early and stay invested. Time is your biggest ally!</p>
+            </div>
+            
+            <div>
+                <div class="service-card">
+                    <div class="service-icon">⏰</div>
+                    <h3>Why Start Now?</h3>
+                    <p><strong>Time Advantage:</strong> The earlier you start, the more time your money has to compound and grow exponentially.</p>
+                    <p><strong>Smaller Investments:</strong> Starting early means you need to invest less monthly to reach the same goal.</p>
+                    <p><strong>Habit Formation:</strong> Develop financial discipline early in life for long-term success.</p>
+                </div>
+                
+                <div class="service-card" style="margin-top: 1rem;">
+                    <div class="service-icon">💡</div>
+                    <h3>Pro Tips</h3>
+                    <p>• Never stop your SIP during market downturns</p>
+                    <p>• Increase SIP amount by 10% annually</p>
+                    <p>• Stay invested for at least 5-7 years</p>
+                    <p>• Review portfolio annually</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FD Reality Section -->
+    <section id="fd-reality">
+        <h2>FD Reality Check</h2>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏦</div>
+                <h3>Fixed Deposit Returns</h3>
+                <p><strong>Current FD Rates:</strong> 6-7% per annum</p>
+                <p><strong>₹10,000/month for 20 years:</strong></p>
+                <p>Total Amount: ~₹49 Lakhs</p>
+                <p style="color: var(--accent-orange); font-weight: 600; margin-top: 0.5rem;">Your investment: ₹24 Lakhs<br>Returns: ₹25 Lakhs</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3>SIP in Equity Funds</h3>
+                <p><strong>Historical Returns:</strong> 12-15% per annum</p>
+                <p><strong>₹10,000/month for 20 years:</strong></p>
+                <p>Total Amount: ~₹1 Crore</p>
+                <p style="color: var(--success-green); font-weight: 600; margin-top: 0.5rem;">Your investment: ₹24 Lakhs<br>Returns: ₹76 Lakhs</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">💸</div>
+                <h3>The Difference</h3>
+                <p><strong>Extra Wealth Created:</strong></p>
+                <p style="font-size: 2rem; color: var(--accent-orange); font-weight: 700; margin: 1rem 0;">₹51 Lakhs!</p>
+                <p>That's over 2X the returns compared to FD with the same monthly investment.</p>
+            </div>
+        </div>
+        
+        <div class="disclaimer-box">
+            <h3>Important Considerations</h3>
+            <p><strong>FDs are good for:</strong> Emergency funds, short-term goals, capital protection</p>
+            <p><strong>Equity SIPs are better for:</strong> Long-term wealth creation, beating inflation, achieving big financial goals</p>
+            <p><strong>Recommendation:</strong> Use both strategically - FDs for stability, Equity SIPs for growth!</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h3 style="color: var(--dark-blue); margin-bottom: 1.5rem;">Get in Touch</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Tell me about your financial goals..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Get One-on-One Consultation</h3>
+                <p style="margin-bottom: 2rem;">Reach out today to start your journey towards ₹1 Crore!</p>
+                
+                <div class="contact-item">
+                    <div class="contact-item-icon">📞</div>
+                    <div class="contact-item-text">
+                        <strong>Phone</strong>
+                        <a href="tel:9017888889" style="color: var(--text-white);">901-788-8889</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-item-icon">✉️</div>
+                    <div class="contact-item-text">
+                        <strong>Email</strong>
+                        <a href="mailto:karan@karanpuri.in" style="color: var(--text-white);">karan@karanpuri.in</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-item-icon">📍</div>
+                    <div class="contact-item-text">
+                        <strong>Location</strong>
+                        Haryana, India
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-item-icon">⏰</div>
+                    <div class="contact-item-text">
+                        <strong>Working Hours</strong>
+                        Mon-Sat: 9:00 AM - 7:00 PM
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disclaimers Section -->
+    <section id="disclaimers">
+        <h2>Disclaimers</h2>
+        <div class="disclaimer-box">
+            <h3>Investment Disclaimer</h3>
+            <p><strong>Mutual Fund investments are subject to market risks. Read all scheme-related documents carefully.</strong></p>
+            
+            <p>The information provided on this website is for educational purposes only and should not be considered as financial advice. Past performance is not indicative of future returns.</p>
+            
+            <p>All investment decisions should be made after consulting with a qualified financial advisor and understanding your personal financial situation, goals, and risk tolerance.</p>
+            
+            <p>Returns mentioned are hypothetical and based on historical market performance. Actual returns may vary significantly.</p>
+            
+            <p>As an AMFI-certified distributor, I earn commissions from mutual fund companies for investments made through me. This does not affect the NAV of your investments.</p>
+        </div>
+        
+        <div class="disclaimer-box" style="margin-top: 1.5rem;">
+            <h3>Regulatory Information</h3>
+            <p><strong>AMFI Registration:</strong> [Registration Number]</p>
+            <p><strong>Regulatory Body:</strong> Association of Mutual Funds in India (AMFI)</p>
+            <p><strong>Compliance:</strong> All recommendations comply with SEBI guidelines</p>
+        </div>
+    </section>
+
+    <!-- Privacy Policy Section -->
+    <section id="privacy">
+        <h2>Privacy Policy</h2>
+        <div class="about-content">
+            <h3 style="color: var(--dark-blue); margin-bottom: 1rem;">Information Collection</h3>
+            <p>We collect personal information (name, email, phone number) only when you voluntarily provide it through our contact form or consultation requests.</p>
+            
+            <h3 style="color: var(--dark-blue); margin: 1.5rem 0 1rem;">Use of Information</h3>
+            <p>Your information is used solely for:</p>
+            <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                <li>Providing financial advisory services</li>
+                <li>Communicating about investment opportunities</li>
+                <li>Sending periodic market updates (with your consent)</li>
+                <li>Maintaining client records as per regulatory requirements</li>
+            </ul>
+            
+            <h3 style="color: var(--dark-blue); margin: 1.5rem 0 1rem;">Data Security</h3>
+            <p>We implement appropriate security measures to protect your personal information. Your data is never shared with third parties without your explicit consent, except as required by law.</p>
+            
+            <h3 style="color: var(--dark-blue); margin: 1.5rem 0 1rem;">Your Rights</h3>
+            <p>You have the right to access, modify, or delete your personal information at any time. Contact us at karan@karanpuri.in for any privacy-related requests.</p>
+            
+            <h3 style="color: var(--dark-blue); margin: 1.5rem 0 1rem;">Cookies</h3>
+            <p>This website may use cookies to improve user experience. You can disable cookies in your browser settings.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#smart-investments">Services</a></li>
+                        <li><a href="#calculators">Calculator</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Investment Options</h3>
+                    <ul>
+                        <li><a href="#equity">Equity Funds</a></li>
+                        <li><a href="#mutual-funds">Mutual Funds</a></li>
+                        <li><a href="#smart-investments">SIP Plans</a></li>
+                        <li><a href="#compounding">Wealth Building</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#compounding">Compounding Guide</a></li>
+                        <li><a href="#fd-reality">FD vs SIP</a></li>
+                        <li><a href="#disclaimers">Disclaimers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="tel:9017888889">📞 901-788-8889</a></li>
+                        <li><a href="mailto:karan@karanpuri.in">✉️ Email Me</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Made with ❤️ in Haryana by <a href="https://vipulanand.in/offers/" target="_blank" rel="noopener">Vipul Anand</a></p>
+                <p>&copy; 2025 Karan Puri. All rights reserved.</p>
+                <p style="font-size: 0.85rem; margin-top: 1rem; opacity: 0.8;">
+                    <strong>Mutual Fund investments are subject to market risks, read all scheme related documents carefully.</strong>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.getElementById('overlay');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+
+        // FAQ Toggle
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = answer.classList.contains('active');
+                
+                // Close all answers
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.classList.remove('active');
+                });
+                
+                // Open clicked answer if it wasn't active
+                if (!isActive) {
+                    answer.classList.add('active');
+                }
+            });
+        });
+
+        // SIP Calculator
+        function calculateSIP() {
+            const monthly = parseFloat(document.getElementById('monthlyInvestment').value);
+            const years = parseFloat(document.getElementById('investmentPeriod').value);
+            const rate = parseFloat(document.getElementById('expectedReturn').value);
+            
+            if (!monthly || !years || !rate) {
+                alert('Please fill all fields');
+                return;
+            }
+            
+            const monthlyRate = rate / 12 / 100;
+            const months = years * 12;
+            
+            // FV = P × [(1 + r)^n - 1] × (1 + r) / r
+            const futureValue = monthly * (Math.pow(1 + monthlyRate, months) - 1) * (1 + monthlyRate) / monthlyRate;
+            const totalInvested = monthly * months;
+            const returns = futureValue - totalInvested;
+            
+            document.getElementById('finalAmount').textContent = '₹' + Math.round(futureValue).toLocaleString('en-IN');
+            document.getElementById('totalInvested').textContent = '₹' + totalInvested.toLocaleString('en-IN');
+            document.getElementById('estimatedReturns').textContent = '₹' + Math.round(returns).toLocaleString('en-IN');
+            document.getElementById('calcResult').classList.add('show');
+        }
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            // In a real application, you would send this data to a server
+            alert(`Thank you, ${name}! Your message has been received. I'll contact you soon at ${phone}.`);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Smooth scroll offset for fixed header
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
