@@ -1514,7 +1514,7 @@
             document.getElementById('calcResult').classList.add('show');
         }
 
-        // Contact Form Submission
+        // Contact Form Submission - Send to WhatsApp
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -1522,13 +1522,30 @@
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
-            const message = document.getElementById('message').value;
+            const message = document.getElementById('message').value || 'No message provided';
             
-            // In a real application, you would send this data to a server
-            alert(`Thank you, ${name}! Your message has been received. I'll contact you soon at ${phone}.`);
+            // Format WhatsApp message
+            const whatsappMessage = `*New Contact Form Submission*%0A%0A` +
+                `*Name:* ${encodeURIComponent(name)}%0A` +
+                `*Email:* ${encodeURIComponent(email)}%0A` +
+                `*Phone:* ${encodeURIComponent(phone)}%0A` +
+                `*Message:* ${encodeURIComponent(message)}%0A%0A` +
+                `_Sent from KaranPuri.in website_`;
             
-            // Reset form
-            this.reset();
+            // WhatsApp number (India: +91 9017888889)
+            const whatsappNumber = '919017888889';
+            
+            // Create WhatsApp URL
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+            
+            // Open WhatsApp in new tab
+            window.open(whatsappURL, '_blank');
+            
+            // Reset form after short delay
+            setTimeout(() => {
+                this.reset();
+                alert('Redirecting to WhatsApp... Please send the message to complete your inquiry!');
+            }, 500);
         });
 
         // Smooth scroll offset for fixed header
